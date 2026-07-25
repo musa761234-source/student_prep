@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExamAI - Preparation Assistant</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen">
+
+  <!-- STEP 1: LANDING PAGE -->
+  <div id="step-landing" class="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-white flex flex-col">
+    <header class="p-5 flex justify-between items-center max-w-6xl mx-auto w-full">
+      <h1 class="text-2xl font-black bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">ExamAI</h1>
+      <button onclick="goToAuth('login')" class="px-5 py-2 font-semibold text-sm rounded-xl border border-purple-200 bg-white text-purple-700 hover:bg-purple-50 shadow-sm">Sign In</button>
+    </header>
+
+    <main class="flex-1 max-w-4xl mx-auto px-6 py-12 text-center flex flex-col items-center justify-center">
+      <h2 class="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6">
+        Preparation <br />
+        <span class="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Assistant</span>
+      </h2>
+      <p class="text-lg text-slate-600 max-w-2xl mb-8">
+        Study smarter with Artificial Intelligence. Live Q&A sessions, upload notes, generate quizzes, create flashcards, summarize PDFs, and prepare for exams faster.
+      </p>
+      <div class="flex gap-4">
+        <button onclick="goToAuth('signup')" class="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold rounded-2xl shadow-xl hover:opacity-90 transition">Get Started</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- STEP 2: AUTH PAGE -->
+  <div id="step-auth" class="hidden min-h-screen bg-gradient-to-br from-purple-100 via-indigo-50 to-blue-100 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border border-purple-100 relative">
+      <button onclick="goToLanding()" class="absolute top-4 left-4 text-xs font-bold text-slate-400">← Back</button>
+      
+      <div class="text-center mt-2 mb-6">
+        <h2 id="auth-title" class="text-3xl font-extrabold text-purple-700">Create Account</h2>
+        <p class="text-sm text-slate-500 mt-1">Join ExamAI today</p>
+      </div>
+
+      <form onsubmit="handleAuth(event)" class="space-y-4">
+        <div id="name-field">
+          <label class="block text-xs font-bold text-slate-700 mb-1">Full Name</label>
+          <input type="text" id="user-name" placeholder="Enter your full name" class="w-full p-3.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-purple-600">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Email</label>
+          <input type="email" required placeholder="Enter your email" class="w-full p-3.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-purple-600">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Password</label>
+          <input type="password" required placeholder="Create password" class="w-full p-3.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-purple-600">
+        </div>
+        <button type="submit" class="w-full py-4 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl shadow-lg transition text-sm">Continue to Dashboard</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- STEP 3: DASHBOARD & LIVE AI Q&A -->
+  <div id="step-dashboard" class="hidden min-h-screen flex text-slate-800">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white border-r border-slate-200 flex flex-col p-6 h-screen sticky top-0">
+      <h1 class="text-2xl font-black text-blue-600 mb-8">ExamAI</h1>
+      <nav class="flex-1 space-y-2">
+        <button onclick="switchTab('dashboard')" class="w-full text-left px-4 py-3 rounded-xl font-bold text-sm bg-blue-600 text-white">Dashboard</button>
+        <button onclick="switchTab('live-qa')" class="w-full text-left px-4 py-3 rounded-xl font-bold text-sm text-slate-600 hover:bg-slate-100">🔴 Live AI Q&A</button>
+        <button onclick="switchTab('notes')" class="w-full text-left px-4 py-3 rounded-xl font-bold text-sm text-slate-600 hover:bg-slate-100">📚 Notes Summarizer</button>
+        <button onclick="switchTab('quiz')" class="w-full text-left px-4 py-3 rounded-xl font-bold text-sm text-slate-600 hover:bg-slate-100">📝 Practice Quiz</button>
+      </nav>
+      <button onclick="goToLanding()" class="mt-auto px-4 py-3 bg-rose-50 text-rose-600 font-bold rounded-xl text-xs">Sign Out</button>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="flex-1 p-8 max-w-5xl mx-auto">
+      
+      <!-- Tab 1: Dashboard Home -->
+      <div id="tab-dashboard" class="space-y-6">
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-8 rounded-3xl text-white shadow-xl">
+          <h2 class="text-3xl font-extrabold mb-2">Welcome Back 👋</h2>
+          <p class="text-blue-100 text-sm mb-6">Your AI-powered learning workspace is active.</p>
+          <div class="flex gap-3">
+            <button onclick="switchTab('live-qa')" class="px-5 py-2.5 bg-emerald-500 text-white font-bold rounded-xl text-xs shadow">Start Live Q&A</button>
+            <button onclick="switchTab('notes')" class="px-5 py-2.5 bg-white text-blue-700 font-bold rounded-xl text-xs">Upload Notes</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Live AI Q&A Session -->
+      <div id="tab-live-qa" class="hidden space-y-4">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+              Live AI Interactive Q&A Session
+            </h2>
+          </div>
+          <div id="qa-box" class="h-[350px] overflow-y-auto space-y-3 p-4 bg-slate-50 rounded-xl border border-slate-200 mb-4">
+            <div class="p-3.5 bg-white border border-slate-200 rounded-2xl text-sm">
+              🤖 <strong>Gemini AI:</strong> Welcome to your live practice session! Ask me any question on your topic.
+            </div>
+          </div>
+          <form onsubmit="handleAskLive(event)" class="flex gap-2">
+            <input type="text" id="qa-input" placeholder="Ask your question live..." class="flex-1 p-3.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-emerald-500">
+            <button type="submit" class="px-6 py-3.5 bg-emerald-600 text-white font-bold rounded-xl text-sm shadow">Ask Live</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Tab 3: Upload Notes -->
+      <div id="tab-notes" class="hidden space-y-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200">
+          <h2 class="text-xl font-bold mb-4">Upload Study Notes</h2>
+          <form onsubmit="addNote(event)" class="space-y-3">
+            <input type="text" id="note-title" placeholder="Topic Title" required class="w-full p-3 rounded-xl border text-sm">
+            <textarea id="note-body" rows="3" placeholder="Paste notes here..." required class="w-full p-3 rounded-xl border text-sm"></textarea>
+            <button type="submit" class="px-6 py-3 bg-blue-600 text-white font-bold rounded-xl text-sm">Save Note</button>
+          </form>
+        </div>
+        <div id="notes-list" class="space-y-3"></div>
+      </div>
+
+      <!-- Tab 4: Practice Quiz -->
+      <div id="tab-quiz" class="hidden bg-white p-6 rounded-2xl border border-slate-200 space-y-4">
+        <h2 class="text-xl font-bold">Practice Quiz</h2>
+        <div class="p-4 bg-slate-50 rounded-xl">
+          <p class="font-bold mb-3">Which component executes instructions in a computer?</p>
+          <div class="grid gap-2">
+            <button onclick="checkQuiz(this, false)" class="p-3 bg-white rounded-xl border text-left text-sm">RAM</button>
+            <button onclick="checkQuiz(this, true)" class="p-3 bg-white rounded-xl border text-left text-sm">CPU</button>
+            <button onclick="checkQuiz(this, false)" class="p-3 bg-white rounded-xl border text-left text-sm">Hard Drive</button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- JavaScript App Logic -->
+  <script>
+    function goToAuth(mode) {
+      document.getElementById('step-landing').classList.add('hidden');
+      document.getElementById('step-auth').classList.remove('hidden');
+      document.getElementById('step-dashboard').classList.add('hidden');
+      
+      if(mode === 'login') {
+        document.getElementById('auth-title').innerText = 'Welcome Back';
+        document.getElementById('name-field').classList.add('hidden');
+      } else {
+        document.getElementById('auth-title').innerText = 'Create Account';
+        document.getElementById('name-field').classList.remove('hidden');
+      }
+    }
+
+    function goToLanding() {
+      document.getElementById('step-landing').classList.remove('hidden');
+      document.getElementById('step-auth').classList.add('hidden');
+      document.getElementById('step-dashboard').classList.add('hidden');
+    }
+
+    function handleAuth(e) {
+      e.preventDefault();
+      document.getElementById('step-auth').classList.add('hidden');
+      document.getElementById('step-dashboard').classList.remove('hidden');
+    }
+
+    function switchTab(tabName) {
+      ['dashboard', 'live-qa', 'notes', 'quiz'].forEach(t => {
+        document.getElementById('tab-' + t).classList.add('hidden');
+      });
+      document.getElementById('tab-' + tabName).classList.remove('hidden');
+    }
+
+    function handleAskLive(e) {
+      e.preventDefault();
+      const input = document.getElementById('qa-input');
+      const box = document.getElementById('qa-box');
+      if(!input.value.trim()) return;
+
+      box.innerHTML += `<div class="p-3.5 bg-blue-600 text-white rounded-2xl text-sm ml-auto max-w-[80%]">${input.value}</div>`;
+      box.innerHTML += `<div class="p-3.5 bg-white border border-slate-200 rounded-2xl text-sm max-w-[80%]">🤖 <strong>Gemini AI:</strong> Here is the live answer and study tip for "${input.value}".</div>`;
+      input.value = '';
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function addNote(e) {
+      e.preventDefault();
+      const title = document.getElementById('note-title').value;
+      const body = document.getElementById('note-body').value;
+      const list = document.getElementById('notes-list');
+
+      list.innerHTML = `<div class="bg-white p-4 rounded-2xl border"><h4 class="font-bold text-blue-600">${title}</h4><p class="text-sm text-slate-600 mt-1">${body}</p></div>` + list.innerHTML;
+      document.getElementById('note-title').value = '';
+      document.getElementById('note-body').value = '';
+    }
+
+    function checkQuiz(btn, isCorrect) {
+      if(isCorrect) {
+        btn.className = "p-3 bg-emerald-100 border border-emerald-500 text-emerald-800 rounded-xl text-left text-sm font-bold";
+      } else {
+        btn.className = "p-3 bg-rose-100 border border-rose-500 text-rose-800 rounded-xl text-left text-sm font-bold";
+      }
+    }
+  </script>
+</body>
+</html>
