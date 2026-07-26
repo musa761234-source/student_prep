@@ -1,2 +1,2 @@
 # student_prep
-https://student-prep.vercel.app/
+https://student-prep-1qzz.vercel.app/
